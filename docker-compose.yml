@@ -7,9 +7,32 @@ services:
       dockerfile: Dockerfile
     container_name: nextjs-app
     ports:
-      - "3000:3000"
+      - "3000:3000"  # Next.js uygulamanızı 3000 portunda çalıştırıyoruz
     env_file:
-      - .env # Çevresel değişkenler .env dosyasından okunacak
+      - .env  # Çevresel değişkenler .env dosyasından okunacak
     environment:
-      NODE_ENV: production # Çevre ortamı 'production' olarak ayarlanıyor
-    restart: unless-stopped
+      NODE_ENV: production  # Çevre ortamı 'production' olarak ayarlanıyor
+    restart: unless-stopped  # Eğer konteyner durursa, yalnızca durmazsa yeniden başlatılacak
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"  # Jenkins için 8080 portunu dışarıya açıyoruz
+    volumes:
+      - jenkins_home:/var/jenkins_home  # Jenkins için verilerin saklanacağı yer
+    restart: unless-stopped  # Jenkins konteyneri yeniden başlatılacak, durursa
+
+  ngrok:
+    image: ngrok/ngrok
+    container_name: ngrok
+    environment:
+      - NGROK_AUTHTOKEN=2oypeBMNzyercWPIiktem8AKJQ0_4VQUVzgwgwMoH69WphygV  # Ngrok auth token (daha önce kaydettiniz)
+      - NGROK_REGION=us  # Ngrok bölgesini 'us' olarak ayarlıyoruz (gerekirse değiştirebilirsiniz)
+    ports:
+      - "4040:4040"  # Ngrok web arayüzü için 4040 portunu dışarıya açıyoruz
+    command: http jenkins:8080  # Ngrok, Jenkins'in 8080 portuna tünel açacak
+    restart: unless-stopped  # Ngrok yeniden başlatılacak, durursa
+
+volumes:
+  jenkins_home:
