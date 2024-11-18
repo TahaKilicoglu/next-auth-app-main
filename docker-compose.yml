@@ -18,7 +18,7 @@ services:
     image: jenkins/jenkins:lts
     container_name: jenkins
     ports:
-      - "8080:8080"  # Jenkins için 8080 portunu dışarıya açıyoruz
+      - "8081:8080"  # Jenkins için 8080 portunu dışarıya açıyoruz
     volumes:
       - jenkins_home:/var/jenkins_home  # Jenkins için verilerin saklanacağı yer
     restart: unless-stopped  # Jenkins konteyneri yeniden başlatılacak, durursa
@@ -31,7 +31,7 @@ services:
       - NGROK_REGION=us  # Ngrok bölgesini 'us' olarak ayarlıyoruz (gerekirse değiştirebilirsiniz)
     ports:
       - "4040:4040"  # Ngrok web arayüzü için 4040 portunu dışarıya açıyoruz
-    command: http jenkins:8080  # Ngrok, Jenkins'in 8080 portuna tünel açacak
+    command: http jenkins:8081  # Ngrok, Jenkins'in 8080 portuna tünel açacak
     restart: unless-stopped  # Ngrok yeniden başlatılacak, durursa
 
 volumes:
