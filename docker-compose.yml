@@ -9,7 +9,7 @@ services:
     ports:
       - "3000:3000"  # Next.js uygulamanızı 3000 portunda çalıştırıyoruz
     env_file:
-      - .env.local  # Çevresel değişkenler .env dosyasından okunacak
+      - .env  # Çevresel değişkenler .env dosyasından okunacak
     environment:
       NODE_ENV: production  # Çevre ortamı 'production' olarak ayarlanıyor
     restart: unless-stopped  # Eğer konteyner durursa, yalnızca durmazsa yeniden başlatılacak
