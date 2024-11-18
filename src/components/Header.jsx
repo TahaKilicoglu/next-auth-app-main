@@ -11,7 +11,7 @@ export default function Header() {
             Auth
           </span>
           <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-purple-700 drop-shadow-md group-hover:from-purple-400 group-hover:to-purple-600'>
-            Aqp
+            App
           </span>
         </Link>
         {/* add a navigation menu */}
